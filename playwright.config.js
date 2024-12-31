@@ -15,7 +15,7 @@ module.exports = defineConfig({
   /*Maximum time on test can run for. */
   timeout: 30 * 1000,
   expect: {
-    timeout: 5000
+    timeout: 5000 // time out for each assertion
   },
 
   /* Run tests in files in parallel */
@@ -27,7 +27,7 @@ module.exports = defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: 'html',
+  reporter: 'dot',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
@@ -35,7 +35,8 @@ module.exports = defineConfig({
     browserName: 'chromium',
     headless : false,
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on-first-retry'
+    trace: 'retain-on-failure'  , //off, on
+    screenshot:  'only-on-failure'
   }
 
 });
