@@ -1,5 +1,6 @@
 import { test, expect, request } from "@playwright/test";
-import { APIUtils } from "./utils/APIUtils";
+import { APIUtils } from "../utils/APIUtils.js";
+
 // Creating global variables
 const loginPayLoad = {
     userEmail: "gaurav@gmail.com",
@@ -22,7 +23,7 @@ test.beforeAll(async () => {
     console.log("\nResponse object: "+JSON.stringify(response));
 });
 
-test("Place Order via API Test Util", async ({ page }) => {
+test("@API Place Order via API Test Util", async ({ page }) => {
     await page.addInitScript(value => {
         window.localStorage.setItem("token", value)
     }, response.token);

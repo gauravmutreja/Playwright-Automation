@@ -17,11 +17,21 @@ test("Calender Validations", async ({ page }) => {
     await page.locator("//abbr[text()='" + day + "']").click();
     // await page.getByRole("button",{name:day}).click();
 
-    // const selectedDate = page.locator(".react-date-picker__inputGroup [name='date']").getAttribute("value");
-    // console.log(selectedDate);
+    const selectedDate = await page.locator(".react-date-picker__inputGroup input[name='date']").getAttribute("value");
+    console.log(selectedDate);
 
-    const inputDate = page.locator(".react-date-picker__inputGroup input");
-    for (let i = 0; i < inputDate.length; i++) {
-        const value = inputDate[i]  
+    const inputDate = page.locator("div .react-date-picker__inputGroup__input");
+    console.log("total elements = " + await inputDate.count());
+    for(let i=0;i<await inputDate.count(); i++){
+        const value = await inputDate.nth(i).getAttribute("value");
+        expect(value).toEqual(expectedDate[i]);
+        console.log("Right \n");
     }
+
+    // const dateArray = selectedDate.split("-");
+    // for(let i=0; i<dateArray.length; i++){
+    //     expect(dateArray[i]).toEqual(expectedDate[i]);
+    //     console.log("Correct \n");
+    // }
+    
 });

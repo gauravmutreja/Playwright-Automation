@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test"
 
-test("Basics SL", async ({ page }) => {
+test("Basics", async ({ page }) => {
     await page.goto("https://rahulshettyacademy.com/angularpractice/");
     await page.getByLabel("Check me out if you Love IceCreams!").click();//only text inside label tag
     await page.getByLabel("Employed").check(); //can use instead of click in checkbox or radio-button
@@ -14,22 +14,22 @@ test("Basics SL", async ({ page }) => {
 
 });
 
-test("E2E Special Locators", async ({ page }) => {
-    const email = "anshika@gmail.com";
+test("E2E with Special Locators", async ({ page }) => {
+    const email = "gaurav@gmail.com";
     await page.goto("https://rahulshettyacademy.com/client/");
     await page.getByPlaceholder("email@example.com").fill(email);
-    await page.getByPlaceholder("enter your passsword").fill("Iamking@000");
-    await page.getByRole("button", { name: "login" }).click();
+    await page.getByPlaceholder("enter your passsword").fill("Gaurav@123");
+    await page.getByRole("button", { name: "Login" }).click();
     //await page.waitForLoadState('networkidle')
     await page.locator(".card-body b").first().waitFor();
-    await page.locator(".card-body").filter({ hasText: "ZARA COAT 3" }).getByRole("button", { name: "Cart" }).click();
+    await page.locator(".card-body").filter({hasText: "Banarsi Saree"}).getByRole("button", { name: "Cart" }).click();
     //check cart: if product got added
     await page.getByRole("listitem").getByRole("button",{ name: "Cart" }).click();
 
     await page.locator("div li").first().waitFor();
 
     //assertion if porduct got added
-    await expect(page.getByText("ZARA COAT 3")).toBeVisible();
+    await expect(page.getByText("Banarsi Saree")).toBeVisible();
 
     //Go to checkout page, fill details and select country
     await page.getByRole("button", { name: "Checkout" }).click();

@@ -6,8 +6,7 @@ let orderID;
 
 test.beforeAll(async ({ request }) => {
     //Login Request
-
-    // const requestContext = request.newContext()
+    // const apiContext = request.newContext()
     const loginResponse = await request.post("https://rahulshettyacademy.com/api/ecom/auth/login",
         {
             data: loginPayLoad
@@ -17,13 +16,14 @@ test.beforeAll(async ({ request }) => {
     //console.log(await loginResponse.json());
     const loginResponseJson = await loginResponse.json();
     console.log(loginResponseJson)
-    console.log("printing strigified object" + JSON.stringify(loginResponseJson))
+    //console.log("printing strigified object: " + JSON.stringify(loginResponseJson))
     token = loginResponseJson.token;
-    console.log("token: " + token);
+    console.log("\n token: " + token);
 
     //Order Request
 
-    const orderResponse = await request.post("https://rahulshettyacademy.com/api/ecom/order/create-order",
+    const orderResponse = await request.post(
+        "https://rahulshettyacademy.com/api/ecom/order/create-order",
         {
             data: orderPayload,
             headers:
@@ -34,14 +34,14 @@ test.beforeAll(async ({ request }) => {
 
         });
     expect(orderResponse).toBeOK();
-    const orderResponseJson = await orderResponse.json()
-    console.log("Reponse: "+orderResponseJson);
+    const orderResponseJson = await orderResponse.json();
+    console.log("\n OrderReponse: "+orderResponseJson);
     orderID =  orderResponseJson.orders[0];
-    console.log("orderID: "+orderID);
+    console.log("\n OrderID: "+orderID);
 
 });
 
-test("Place Order via API Test", async ({ page }) => {
+test("@API Place Order via API Test", async ({ page }) => {
     await page.addInitScript(value => {
         window.localStorage.setItem("token", value)
     }, token);

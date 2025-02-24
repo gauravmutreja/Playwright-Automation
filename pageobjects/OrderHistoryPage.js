@@ -10,10 +10,10 @@ export class OrderHistroyPage{
         await this.waitFor.waitFor();
     }
 
-    async searchAndViewOrder(){
+    async searchAndViewOrder(orderID){
         for(let i=0; i<await this.orderList.count();i++){
             const RowOrderId = await this.orderList.nth(i). locator("th").textContent();
-            if(this.orderId.includes(RowOrderId) ){
+            if(orderID.includes(RowOrderId) ){
                 await this.orderList.nth(i).locator("button:has-text('View')").click();
                 break;
             }

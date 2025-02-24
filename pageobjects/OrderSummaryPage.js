@@ -1,6 +1,6 @@
 export class OrderSummaryPage{
     
-    constructor(){
+    constructor(page){
         this.page = page;
         this.orderSummaryIdword = page.locator("div small");
         this.orderId = page.locator(".col-text.-main");
@@ -8,7 +8,7 @@ export class OrderSummaryPage{
 
     }
 
-    async waitForOrderSummaryId(){
+    async waitForOrderSummary(){
         this.orderSummaryIdword.waitFor();
     }
     

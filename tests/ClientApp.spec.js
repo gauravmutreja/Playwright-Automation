@@ -3,8 +3,8 @@ import { test, expect } from "@playwright/test"
 
 test("@Login and print context ", async ({ page }) => {
     await page.goto("https://rahulshettyacademy.com/client/")
-    await page.locator("#userEmail").fill("anshika@gmail.com")
-    await page.locator("#userPassword").fill("Iamking@000")
+    await page.locator("#userEmail").fill("gaurav@gmail.com")
+    await page.locator("#userPassword").fill("Gaurav@123")
     await page.locator("[name='login']").click()
     //await page.waitForLoadState('networkidle')
     await page.locator(".card-body b").first().waitFor() //wait for() works only for single matching element not array of elements
@@ -13,10 +13,10 @@ test("@Login and print context ", async ({ page }) => {
 });
 
 test("End to End Testing", async ({ page }) => {
-    const email = "anshika@gmail.com";
+    const email = "gaurav@gmail.com";
     await page.goto("https://rahulshettyacademy.com/client/");
     await page.locator("#userEmail").fill(email);
-    await page.locator("#userPassword").fill("Iamking@000");
+    await page.locator("#userPassword").fill("Gaurav@123");
     await page.locator("[name='login']").click();
     await page.waitForLoadState('networkidle')
     console.log(await page.locator(".card-body b").allTextContents());
@@ -72,7 +72,7 @@ test("End to End Testing", async ({ page }) => {
     await page.locator("tbody").waitFor();
     const orderList = page.locator("tbody tr");
     for(let i=0; i<await orderList.count();i++){
-        const RowOrderId = await orderList.nth(i). locator("th").textContent();
+        const RowOrderId = await orderList.nth(i).locator("th").textContent();
         if(orderId.includes(RowOrderId) ){
             await orderList.nth(i).locator("button:has-text('View')").click();
             break;
@@ -81,19 +81,4 @@ test("End to End Testing", async ({ page }) => {
     await page.locator("div small").waitFor();
     const orderSummaryId = await page.locator(".col-text.-main").textContent();
     expect(orderId).toContain(orderSummaryId);
-});
-
-test('Facebook Search', async ({ page }) => {
-    await page.goto('https://www.google.com/');
-    await page.getByLabel('Language: ‪English‬').click();
-    await page.getByRole('button', { name: 'Reject all' }).click();
-    await page.getByLabel('Search', { exact: true }).click();
-    await page.getByLabel('Search', { exact: true }).fill('Gaurav Mutreja');
-    await page.goto('https://www.google.com/search?q=Gaurav+Mutreja&sca_esv=adafaf889a5483d7&source=hp&ei=QSVYZ-axEqyKxc8Pg_zHuAM&iflsig=AL9hbdgAAAAAZ1gzUdcwCs6Cc398ln4QwXXeaOzQ4Spd&ved=0ahUKEwim1t7zi52KAxUsRfEDHQP-ETcQ4dUDCBE&uact=5&oq=Gaurav+Mutreja&gs_lp=Egdnd3Mtd2l6Ig5HYXVyYXYgTXV0cmVqYTIFEAAYgAQyCxAAGIAEGIYDGIoFMggQABiABBiiBDIFEAAY7wUyCBAAGIAEGKIEMgUQABjvBTIIEAAYgAQYogRIiWhQ_gZYuh5wAXgAkAEAmAFooAHjBqoBBDEzLjG4AQPIAQD4AQGYAg6gAowHqAIAwgILEC4YgAQY0QMYxwHCAgUQLhiABMICBxAAGIAEGArCAgsQLhiABBjHARivAcICBhAAGBYYHpgDAfEFv3jRXL-eTTiSBwQxMy4xoAe-lwE&sclient=gws-wiz');
-    await page.getByRole('link', { name: 'Gaurav Mutreja in people' }).click();
-    await page.getByRole('button', { name: 'Decline optional cookies' }).click();
-    await expect(page.getByTestId('paginated_results').getByLabel('Gaurav Mutreja').nth(1)).toBeVisible();
-    await expect(page.getByTestId('paginated_results').getByTestId('results')).toContainText('Gaurav Mutreja');
-    await page.getByTestId('paginated_results').getByRole('link', { name: 'Gaurav Mutreja' }).nth(1).click();
-    await page.getByLabel('Close').click();
 });

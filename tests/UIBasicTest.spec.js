@@ -63,7 +63,7 @@ test("@UI Controls", async ({ page }) => {
     await expect(documentLink).toHaveAttribute("class", "blinkingText");
 });
 
-test("@Child Window Handling", async ({ page }) => {
+test("@UI Child Window Handling", async ({ page }) => {
     await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
     const documentLink = page.locator("[href*='documents-request']");
 
@@ -72,16 +72,20 @@ test("@Child Window Handling", async ({ page }) => {
         page.context().waitForEvent('page'),
         documentLink.click()
     ]);
+    
     let text = await newPage.locator(".red").textContent();
     const domain = text.split("@")[1].split(".")[0];
     console.log(domain);
+    console.log("innerText = " + await newPage.locator(".red").innerText());
+    // For input, textarea and select elements we can use .inputValue()
+    // For any other elements we can use .textContent() or .innerText()
     await page.locator("#username").fill(domain);
-    await page.pause();
-    console.log(await page.locator("#username").innerText());
+    console.log('inputValue value = ')
+    console.log(await page.locator("#username").inputValue());
 
 });
 
-test("Popup Validations", async ({ page }) => {
+test("@UI Popup Validations", async ({ page }) => {
     await page.goto("https://rahulshettyacademy.com/AutomationPractice/");
     await page.goto("https://www.google.com/");
     await page.goBack();
@@ -104,4 +108,21 @@ test("Popup Validations", async ({ page }) => {
     const textCheck = await framesPage.locator("div[class='text'] h2").textContent();
     console.log(textCheck);
     console.log(textCheck.split(" ")[1]);
+});
+
+test("@UI Screenshot Validation", async({page})=>{
+    await page.goto("https://rahulshettyacademy.com/AutomationPractice/");
+    await expect(page.locator("#displayed-text")).toBeVisible();
+    await page.locator("#displayed-text").screenshot({path:'partialScreenshot.png'});
+    await page.locator("#hide-textbox").click();
+    await expect(page.locator("#displayed-text")).toBeHidden();
+    await page.screenshot({path: 'screenshot.png'});
+});
+
+test("@UI Visual Comparison", async({page})=>{
+    await page.goto("http://google.com/")
+    expect(await page.screenshot()).toMatchSnapshot("googleLandingPage.png");
+    await page.goto("https://www.flightaware.com/")
+    expect(await page.screenshot()).toMatchSnapshot("flightwareLandingPage.png");
+
 });

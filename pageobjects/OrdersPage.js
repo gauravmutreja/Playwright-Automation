@@ -9,7 +9,7 @@ export class OrdersPage {
         this.coupon = page.locator("[name='coupon']");
         this.applyCouponbtn = page.locator("button[type='submit']");
         this.countryTextbox = page.locator("[placeholder*='Country']")
-        this.dropdownCountry = page.locator(".ta-results [type='button']",);
+        this.dropdownCountry = page.locator(".ta-results [type='button']");
         this.checkCoupon = page.locator(".field.small p");        
         this.btnPlaceOrder = page.locator(".action__submit");
         this.username = page.locator(".user__name label");
@@ -29,11 +29,11 @@ export class OrdersPage {
 
     async selectCountry(countryName) {
         await this.countryTextbox.pressSequentially(countryName);
-        await dropdownCountry.first().waitFor();
-        for (let i = 0; i < await dropdownCountry.count(); i++) {
-            let text = await dropdownCountry.nth(i).textContent();
+        await this.dropdownCountry.first().waitFor();
+        for (let i = 0; i < await this.dropdownCountry.count(); i++) {
+            let text = await this.dropdownCountry.nth(i).textContent();
             if (text.trim() === "India") {
-                await dropdownCountry.nth(i).click();
+                await this.dropdownCountry.nth(i).click();
                 break;
             }
         }
