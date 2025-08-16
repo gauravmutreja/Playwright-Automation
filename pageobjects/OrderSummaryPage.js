@@ -4,8 +4,6 @@ export class OrderSummaryPage{
         this.page = page;
         this.orderSummaryIdword = page.locator("div small");
         this.orderId = page.locator(".col-text.-main");
-
-
     }
 
     async waitForOrderSummary(){

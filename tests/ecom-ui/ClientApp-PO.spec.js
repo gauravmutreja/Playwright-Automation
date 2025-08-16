@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
-import { PoManager } from "../utils/PoManager.js";
-import dataset from "../test-data/ClientAppTestData.json";
+import { PoManager } from "../../utils/PoManager.js";
+import dataset from "../../test-data/ClientAppTestData.json";
 
 for (const data of dataset) {
 test(`@PO: End to End Testing for ${data.productName}`, async ({ page }) => {
@@ -60,7 +60,7 @@ test(`@PO: End to End Testing for ${data.productName}`, async ({ page }) => {
 
     //OrderSumary Page
         const orderSummaryPage = poManager.getOrderSummaryPage()
-        orderSummaryPage.waitForOrderSummary();
+        await orderSummaryPage.waitForOrderSummary();
         await expect(orderSummaryPage.orderId).toHaveText(orderID);
     });
 }

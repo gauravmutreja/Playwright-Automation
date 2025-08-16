@@ -1,17 +1,20 @@
 import { test, expect } from "@playwright/test"
 
-test("Basics", async ({ page }) => {
+test.only("Basics", async ({ page }) => {
     await page.goto("https://rahulshettyacademy.com/angularpractice/");
+    //get by 
     await page.getByLabel("Check me out if you Love IceCreams!").click();//only text inside label tag
     await page.getByLabel("Employed").check(); //can use instead of click in checkbox or radio-button
     await page.getByLabel("Gender").selectOption("Female");
-    await page.getByPlaceholder("Password").fill("Gaurav123");//having attribute placeholder
+    //get by placeholder
+    await page.getByPlaceholder("Password").fill("Gaurav456");//having attribute placeholder
+    //get by role
     await page.getByRole("button", { name: "Submit" }).click();//either tag=button or class/type = btn or button
+    //get by text
     console.log(page.getByText("Success! The Form has been submitted successfully!."));
     expect(await page.getByText("Success! The Form has been submitted successfully!.").isVisible()).toBeTruthy();
     await page.getByRole("link", { name: "Shop" }).click();
     await page.locator("app-card").filter({ hasText: "Nokia Edge" }).getByRole("button").click(); //chaining
-
 });
 
 test("E2E with Special Locators", async ({ page }) => {

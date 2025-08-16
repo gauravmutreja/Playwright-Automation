@@ -7,7 +7,8 @@
     "APITest": "npx playwright test --grep @API",
     "UITests": "npx playwright test --grep @UI",
     "safariConfig": "npx playwright test --config playwright.config1.js --project=safari",
-    "CucumberRegression": "npx cucumber-js --tags 'Regression' --retry 1 --exit --format html:cucumber-report.html"
+    "CucumberRegression": "npx cucumber-js --tags 'Regression' --retry 1 --exit --format html:cucumber-report.html",
+    "tsc" : "tsc"
   },
   "keywords": [],
   "author": "",
@@ -17,10 +18,11 @@
     "@cucumber/pretty-formatter": "^1.0.1",
     "@playwright/test": "^1.49.0",
     "@types/node": "^22.10.1",
-    "allure-playwright": "^3.0.9"
+    "allure-playwright": "^3.0.9",
+    "typescript": "^5.9.2"
   },
   "dependencies": {
     "@cucumber/cucumber": "^11.2.0",
-    "cucumber-html-reporter": "^7.2.0"
+    "cucumber-html-reporter": "^6.0.0"
   }
 }

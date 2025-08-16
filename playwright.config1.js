@@ -1,5 +1,5 @@
 // @ts-check
-const { defineConfig, devices } = require('@playwright/test');
+import { defineConfig, devices } from '@playwright/test';
 
 /**
  * Read environment variables from file.
@@ -10,7 +10,7 @@ const { defineConfig, devices } = require('@playwright/test');
 /**
  * @see https://playwright.dev/docs/test-configuration
  */
-module.exports = defineConfig({
+export default defineConfig({
   testDir: './tests',
   /*Maximum time on test can run for. */
   timeout: 30 * 1000,
@@ -35,8 +35,8 @@ module.exports = defineConfig({
         browserName: 'chromium',
         headless : false,
         trace: 'retain-on-failure'  , //off, on
-        screenshot:  'only-on-failure',
-        video:'retain-on-failure', //record video
+        screenshot: 'only-on-failure',//off, on
+        video: 'retain-on-failure', //record video,
         viewport: {width:240, height:720},
         ignoreHTTPSErrors:true, //will allow you to access even if the website is not ssl certified
         permissions:['Geolocation'] //automatically handle pop up asking your location

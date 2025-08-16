@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test"; //to import playwright package for test in our file
-// browser is a global fixture that a global variable, need to wrap in {} to define it as playwright fixture 
+// browser is a global fixture i.e. a global variable, need to wrap in {} to define it as playwright fixture 
 
 test('Browser Context Playwright test', async ({ browser }) => {// this part can be written as "async function({browser}){}""
 
@@ -37,12 +37,14 @@ test('Page Playwright test', async ({ page }) => {
     await page.goto("https://google.com")
     //get title assertion
     console.log(await page.title());
+    expect(await page.title()).toBe('Google');
     await expect(page).toHaveTitle('Google');
 
 });
 
-test("@UI Controls", async ({ page }) => {
+test('@UI Controls', async ({ page }) => {
     await page.goto("https://rahulshettyacademy.com/loginpagePractise/")
+   
     //dropdown
     const dropdown = page.locator("select.form-control")
     await dropdown.selectOption('consult')
@@ -51,8 +53,7 @@ test("@UI Controls", async ({ page }) => {
     await page.locator("#okayBtn").click()
     await expect(page.locator(".customradio").last()).toBeChecked()
     console.log(await page.locator(".customradio").last().isChecked())
-    expect(page.locator('.customradio').last().isChecked()).toBeTruthy() //parameter should return true
-
+    expect(await page.locator('.customradio').last().isChecked()).toBeTruthy() //parameter should return true
     // await page.pause()// to Pause execution
     await page.locator("#terms").click();
     await expect(page.locator('#terms')).toBeChecked();
@@ -63,7 +64,7 @@ test("@UI Controls", async ({ page }) => {
     await expect(documentLink).toHaveAttribute("class", "blinkingText");
 });
 
-test("@UI Child Window Handling", async ({ page }) => {
+test.only("@UI Child Window Handling", async ({ page }) => {
     await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
     const documentLink = page.locator("[href*='documents-request']");
 
@@ -72,16 +73,16 @@ test("@UI Child Window Handling", async ({ page }) => {
         page.context().waitForEvent('page'),
         documentLink.click()
     ]);
-    
+
     let text = await newPage.locator(".red").textContent();
     const domain = text.split("@")[1].split(".")[0];
     console.log(domain);
     console.log("innerText = " + await newPage.locator(".red").innerText());
-    // For input, textarea and select elements we can use .inputValue()
-    // For any other elements we can use .textContent() or .innerText()
+    // .inputValue() - this is used to get the value of input field, it works only for input fields.
+    // .textContent() and .innerText() can be used for any element, not just input fields.
     await page.locator("#username").fill(domain);
-    console.log('inputValue value = ')
-    console.log(await page.locator("#username").inputValue());
+    console.log('Value of username field entered = ')
+    console.log(await page.locator("#username").inputValue()); // to get value of input field
 
 });
 
@@ -96,7 +97,8 @@ test("@UI Popup Validations", async ({ page }) => {
     await page.locator("#hide-textbox").click();
     await expect(page.locator("#displayed-text")).toBeHidden();
     // await page.pause();
-    page.on('dialog', dialog => dialog.accept()); //to accept pop up & dialog.dismiss() to reject
+    page.on('dialog', dialog => dialog.accept()); //to accept pop up & dialog.dismiss() to reject pop up
+    // these are java related popups, not web based /browser popups.
     await page.locator("#confirmbtn").click();
     await page.locator("#mousehover").hover();
 
@@ -110,16 +112,16 @@ test("@UI Popup Validations", async ({ page }) => {
     console.log(textCheck.split(" ")[1]);
 });
 
-test("@UI Screenshot Validation", async({page})=>{
+test("@UI Screenshot Validation", async ({ page }) => {
     await page.goto("https://rahulshettyacademy.com/AutomationPractice/");
     await expect(page.locator("#displayed-text")).toBeVisible();
-    await page.locator("#displayed-text").screenshot({path:'partialScreenshot.png'});
+    await page.locator("#displayed-text").screenshot({ path: 'partialScreenshot.png' });
     await page.locator("#hide-textbox").click();
     await expect(page.locator("#displayed-text")).toBeHidden();
-    await page.screenshot({path: 'screenshot.png'});
+    await page.screenshot({ path: 'screenshot.png' });
 });
 
-test("@UI Visual Comparison", async({page})=>{
+test("@UI Visual Comparison", async ({ page }) => {
     await page.goto("http://google.com/")
     expect(await page.screenshot()).toMatchSnapshot("googleLandingPage.png");
     await page.goto("https://www.flightaware.com/")

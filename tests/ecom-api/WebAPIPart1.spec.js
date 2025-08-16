@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 const loginPayLoad = { userEmail: "gaurav@gmail.com", userPassword: "Gaurav@123" }
-const orderPayload = {orders: [{country: "Cuba", productOrderedId: "6581ca979fd99c85e8ee7faf"}]}
+const orderPayload = {orders: [{country: "Cuba", productOrderedId: "67a8df1ac0d3e6622a297ccb"}]}
 let token;
 let orderID;
 
@@ -13,7 +13,17 @@ test.beforeAll(async ({ request }) => {
         }
     )
     expect(loginResponse).toBeOK();
-    //console.log(await loginResponse.json());
+    expect(loginResponse.ok()).toBeTruthy();
+    console.log("printing response Stringify: " + JSON.stringify(loginResponse));
+    console.log("printing response plain: " + loginResponse); // [object Object]
+    console.log("printing response: .text" + loginResponse.text()); // [object Promise]
+    console.log("printing response status: " + loginResponse.status()); //200
+    console.log("printing response .status text: " + loginResponse.statusText()); //OK
+    console.log("printing response headers: " + loginResponse.headers()); // [object Object]
+    console.log("printing response: .ok" + loginResponse.ok()); // true
+    console.log("printing response: .body" + loginResponse.body());// [object Promise]
+    
+  
     const loginResponseJson = await loginResponse.json();
     console.log(loginResponseJson)
     //console.log("printing strigified object: " + JSON.stringify(loginResponseJson))
@@ -35,7 +45,7 @@ test.beforeAll(async ({ request }) => {
         });
     expect(orderResponse).toBeOK();
     const orderResponseJson = await orderResponse.json();
-    console.log("\n OrderReponse: "+orderResponseJson);
+    console.log("\n OrderReponseJson: "+orderResponseJson);
     orderID =  orderResponseJson.orders[0];
     console.log("\n OrderID: "+orderID);
 

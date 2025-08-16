@@ -13,17 +13,17 @@ export class APIUtils {
             }
         )
         // expect(loginResponse).toBeOK();
-        console.log("\n LoginResponse : " + loginResponse)
+        console.log(loginResponse)
         const loginResponseJson = await loginResponse.json();
         console.log("\nLoginResponse Json: "+JSON.stringify(loginResponseJson))
         let token = loginResponseJson.token;
-        console.log("\nToken: " + this.token);
-        return this.token= token;
+        console.log("\nToken: " + token);
+        return this.token = token;
     };
 
     async getOrder(orderPayload) {
         //Order Request
-        let response = {}
+        let response ={};
         response.token = await this.getToken();
         const orderResponse = await this.request.post("https://rahulshettyacademy.com/api/ecom/order/create-order",
             {
@@ -34,9 +34,12 @@ export class APIUtils {
                     "Content-Type": "application/json"
                 }
             });
-        // expect(orderResponse).toBeOK();
+        console.log("\n"+ orderResponse);
+        //await expect(orderResponse).toBeOK();
         const orderResponseJson = await orderResponse.json()
+        console.log("orderResponseJson: "+ JSON.stringify(orderResponseJson));
         response.orderID= orderResponseJson.orders[0];
+        console.log("\n"+ response.orderID);
         return response;
     };
 }
