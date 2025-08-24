@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "api-demo-tests": "npx playwright test tests/api-demo/reqres_API_Validations.spec.js",
     "regression": "npx playwright test",
     "APITest": "npx playwright test --grep @API",
     "UITests": "npx playwright test --grep @UI",
