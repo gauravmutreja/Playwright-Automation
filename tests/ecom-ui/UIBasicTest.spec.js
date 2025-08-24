@@ -64,7 +64,7 @@ test('@UI Controls', async ({ page }) => {
     await expect(documentLink).toHaveAttribute("class", "blinkingText");
 });
 
-test.only("@UI Child Window Handling", async ({ page }) => {
+test("@UI Child Window Handling", async ({ page }) => {
     await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
     const documentLink = page.locator("[href*='documents-request']");
 

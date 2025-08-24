@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test"
 
-test.only("End to End Testing", async ({ page }) => {
+test("End to End Testing", async ({ page }) => {
     const email = "gaurav@gmail.com";
     await page.goto("https://rahulshettyacademy.com/client/");
     await page.locator("#userEmail").fill(email);
