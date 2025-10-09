@@ -9,7 +9,7 @@
     "UITests": "npx playwright test --grep @UI",
     "safariConfig": "npx playwright test --config playwright.config1.js --project=safari",
     "CucumberRegression": "npx cucumber-js --tags 'Regression' --retry 1 --exit --format html:cucumber-report.html",
-    "tsc" : "tsc"
+    "tsc": "tsc"
   },
   "keywords": [],
   "author": "",
@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@cucumber/cucumber": "^11.2.0",
+    "@playwright/mcp": "^0.0.36",
     "cucumber-html-reporter": "^6.0.0"
   }
 }

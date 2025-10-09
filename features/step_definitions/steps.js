@@ -1,7 +1,7 @@
-const { When, Then, Given } = require("@cucumber/cucumber");
-const { expect } = require("@playwright/test");
-const playwright = require("@playwright/test");
-const { PoManager } = require("../../utils/PoManager");
+import { When, Then, Given } from "@cucumber/cucumber";
+import { expect } from "@playwright/test";
+import playwright from "@playwright/test";
+import { PoManager } from "../../utils/PoManager";
 
 Given('a login to Ecommerce application with {string} and {string}', {timeout:100*1000}, async function (username, password) {
     // const browser = await playwright.chromium.launch({
