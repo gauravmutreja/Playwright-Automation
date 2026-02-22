@@ -8,7 +8,6 @@ export class OrderSummaryPage{
 
     async waitForOrderSummary(){
         this.orderSummaryIdword.waitFor();
-    }
-    
+    }    
 
 }

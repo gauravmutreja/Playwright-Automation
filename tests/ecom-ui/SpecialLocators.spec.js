@@ -1,4 +1,6 @@
 import { test, expect } from "@playwright/test"
+import { timeLog } from "console";
+import { TIMEOUT } from "dns";
 
 test.only("Basics", async ({ page }) => {
     await page.goto("https://rahulshettyacademy.com/angularpractice/");
@@ -45,4 +47,5 @@ test("E2E with Special Locators", async ({ page }) => {
     await page.getByText("Place Order ").click();
 
     await expect(page.getByText(" Thankyou for the order. ")).toBeVisible();
+	await page.waitForLoadState('domcontentloaded',{timeout: 30000});
 });

@@ -30,6 +30,7 @@ test('Browser Context Playwright test', async ({ browser }) => {// this part can
     console.log("***************");
     console.log(await cardTitle.allTextContents());
 
+
 });
 
 test('Page Playwright test', async ({ page }) => {
@@ -115,10 +116,10 @@ test("@UI Popup Validations", async ({ page }) => {
 test("@UI Screenshot Validation", async ({ page }) => {
     await page.goto("https://rahulshettyacademy.com/AutomationPractice/");
     await expect(page.locator("#displayed-text")).toBeVisible();
-    await page.locator("#displayed-text").screenshot({ path: 'partialScreenshot.png' });
+    await page.locator("#displayed-text").screenshot({ path: 'partialScreenshot.png'});
     await page.locator("#hide-textbox").click();
     await expect(page.locator("#displayed-text")).toBeHidden();
-    await page.screenshot({ path: 'screenshot.png' });
+    await page.screenshot({ path: 'screenshot.png',fullPage: true });
 });
 
 test("@UI Visual Comparison", async ({ page }) => {

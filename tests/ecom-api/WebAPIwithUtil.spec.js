@@ -17,7 +17,6 @@ test("@API Place Order via API Test Util", async ({ page }) => {
     await page.addInitScript(value => {
         window.localStorage.setItem("token", value)
     }, response.token);
-
     await page.goto("https://rahulshettyacademy.com/client");
     await page.locator("button[routerlink*=myorders]").click();
     await page.locator("tbody").waitFor();
